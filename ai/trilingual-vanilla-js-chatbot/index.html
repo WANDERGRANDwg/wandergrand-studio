@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDFAKER AI — WANDERGRAND</title>
+  <meta name="description" content="SDFAKER AI, l'intelligence locale de WANDERGRAND. Un chat trilingue, hors-ligne et sans historique, dans votre navigateur.">
+  <meta name="theme-color" content="#090807">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0908'/%3E%3Ccircle cx='32' cy='32' r='24' fill='none' stroke='%23d9b877' stroke-opacity='.4'/%3E%3Cpath d='M32 8l7 24-7 24-7-24z' fill='%23d9b877'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#interface">Aller à l'interface</a>
+
+  <div class="atmosphere" aria-hidden="true">
+    <div class="glow glow--ember"></div>
+    <div class="glow glow--gold"></div>
+    <div class="grain"></div>
+  </div>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="WANDERGRAND, SDFAKER AI — retour en haut">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-opacity=".32"/>
+          <circle cx="24" cy="24" r="16.5" fill="none" stroke="currentColor" stroke-opacity=".55" stroke-dasharray="2 5"/>
+          <path d="M24 5.5 30 24 24 42.5 18 24Z" fill="currentColor" opacity=".92"/>
+          <path d="M5.5 24 24 18 42.5 24 24 30Z" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".75"/>
+          <circle cx="24" cy="24" r="2.7" fill="#0a0908" stroke="currentColor" stroke-width="1.1"/>
+        </svg>
+        <span class="brand-text">
+          <span class="brand-top">WANDERGRAND</span>
+          <span class="brand-bottom">SDFAKER <em>AI</em></span>
+        </span>
+      </a>
+
+      <nav class="main-nav" aria-label="Navigation principale">
+        <a href="#interface">Interface</a>
+        <a href="#cerveau">Le cerveau</a>
+        <a href="#langues">Langues</a>
+      </nav>
+
+      <div class="header-actions">
+        <span class="status-pill"><span class="status-dot" aria-hidden="true"></span>100 % local</span>
+        <button class="btn btn--ghost btn--small" type="button" data-new-session aria-label="Nouvelle session">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.6-5.9M4 4v5h5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>Nouvelle session</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Intelligence de terrain · Interface 001</p>
+        <h1 id="hero-title">Une voix dans<br>la brume.<br><em>Sans réseau.</em></h1>
+        <p class="hero-lede">SDFAKER AI est une intelligence locale ultra-légère, forgée par WANDERGRAND. Elle écoute en français, en anglais et en malgache — sans jamais quitter votre navigateur.</p>
+        <div class="hero-actions">
+          <a class="btn btn--primary" href="#interface" data-focus-chat>
+            <span>Ouvrir la transmission</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#cerveau">
+            <span>Voir le cerveau</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <dl class="hero-facts">
+          <div>
+            <dt>Réseau</dt>
+            <dd><strong>0</strong> requête</dd>
+          </div>
+          <div>
+            <dt>Langues</dt>
+            <dd><strong>03</strong> voix</dd>
+          </div>
+          <div>
+            <dt>Mémoire</dt>
+            <dd><strong>0</strong> trace</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <svg class="contour-map" viewBox="0 0 620 620" fill="none">
+          <g stroke="#d9b877" stroke-opacity=".18" stroke-width="1">
+            <path d="M310 84c66 0 122 34 154 88 34 57 30 132-6 190-35 56-92 92-148 92-58 0-116-34-152-92-36-59-37-134-4-190 34-55 90-88 156-88Z"/>
+            <path d="M310 120c56 0 104 29 131 75 29 49 25 113-6 162-30 48-78 78-125 78-49 0-99-29-129-78-31-50-31-114-4-162 29-47 77-75 133-75Z"/>
+            <path d="M310 156c46 0 87 24 109 62 24 41 21 94-5 135-25 40-65 65-104 65-41 0-82-24-108-65-26-42-26-95-3-135 24-39 64-62 111-62Z"/>
+            <path d="M310 192c37 0 70 19 88 50 19 33 17 76-4 109-20 32-52 52-84 52-33 0-66-19-87-52-21-34-21-77-2-109 19-31 52-50 89-50Z"/>
+          </g>
+          <g stroke="#d9b877" stroke-opacity=".3" stroke-width="1">
+            <path d="M20 310h70M530 310h70M310 20v70M310 530v70"/>
+            <circle cx="310" cy="310" r="286" stroke-dasharray="1 9" stroke-opacity=".35"/>
+          </g>
+          <g fill="#d9b877" fill-opacity=".45" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" letter-spacing="2">
+            <text x="22" y="302">46° 12' S</text>
+            <text x="512" y="302">47° 08' E</text>
+            <text x="288" y="14">NORD</text>
+            <text x="280" y="610">SUD</text>
+          </g>
+          <circle cx="462" cy="182" r="3" fill="#d0402f"/>
+        </svg>
+
+        <div class="seal-wrap">
+          <span class="seal-label seal-label--a"><i></i>Hors-ligne</span>
+          <span class="seal-label seal-label--b"><i></i>Trilingue</span>
+          <span class="seal-label seal-label--c"><i></i>Éphémère</span>
+          <svg class="seal" viewBox="0 0 420 420">
+            <defs>
+              <radialGradient id="sealCore" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stop-color="#1b1813"/>
+                <stop offset="70%" stop-color="#100e0b"/>
+                <stop offset="100%" stop-color="#0b0a08"/>
+              </radialGradient>
+              <linearGradient id="sealGold" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#f2dcaa"/>
+                <stop offset="48%" stop-color="#d9b877"/>
+                <stop offset="100%" stop-color="#9c7c47"/>
+              </linearGradient>
+              <path id="sealTextPath" d="M210 54a156 156 0 1 1-.1 0"/>
+            </defs>
+            <circle cx="210" cy="210" r="202" fill="#0b0a08" stroke="#d9b877" stroke-opacity=".18"/>
+            <circle cx="210" cy="210" r="188" fill="none" stroke="#d9b877" stroke-opacity=".22" stroke-dasharray="1 7"/>
+            <circle cx="210" cy="210" r="156" fill="url(#sealCore)" stroke="url(#sealGold)" stroke-opacity=".55"/>
+            <circle cx="210" cy="210" r="136" fill="none" stroke="#d9b877" stroke-opacity=".25"/>
+            <text fill="#d9b877" fill-opacity=".7" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10.5" letter-spacing="5.5">
+              <textPath href="#sealTextPath" startOffset="0%">SDFAKER AI · LOCAL INTELLIGENCE · WANDERGRAND · FR EN MG ·</textPath>
+            </text>
+            <g stroke="#d9b877" stroke-opacity=".45">
+              <path d="M210 74v18M210 328v18M74 210h18M328 210h18" stroke-width="1"/>
+              <circle cx="210" cy="210" r="92" stroke-dasharray="2 8" stroke-opacity=".3"/>
+            </g>
+            <g fill="none" stroke="url(#sealGold)">
+              <rect x="164" y="164" width="92" height="92" stroke-opacity=".5"/>
+              <rect x="176" y="176" width="68" height="68" stroke-opacity=".35" transform="rotate(45 210 210)"/>
+              <circle cx="210" cy="210" r="34" stroke-opacity=".75"/>
+            </g>
+            <path d="M210 108l17 85-17 26-17-26z" fill="url(#sealGold)"/>
+            <path d="M210 312l-17-85 17-26 17 26z" fill="#d0402f" fill-opacity=".85"/>
+            <path d="M108 210l85 17-26 17-59-34Z" fill="#d9b877" fill-opacity=".22"/>
+            <path d="M312 210l-85-17 26-17 59 34Z" fill="#d9b877" fill-opacity=".22"/>
+            <circle cx="210" cy="210" r="7" fill="#0b0a08" stroke="url(#sealGold)" stroke-width="2"/>
+            <circle cx="210" cy="210" r="2.5" fill="#d9b877"/>
+            <circle cx="210" cy="58" r="3" fill="#d0402f"/>
+            <circle cx="210" cy="362" r="2" fill="#d9b877"/>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="interface-section wrap" id="interface" aria-labelledby="interface-title">
+      <div class="section-bar">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Interface 001</p>
+          <h2 id="interface-title">La transmission</h2>
+        </div>
+        <p class="section-bar-note"><span class="live-dot" aria-hidden="true"></span>Aucune connexion sortante<br><span>Le cerveau tourne dans ce navigateur.</span></p>
+      </div>
+
+      <div class="chat-shell">
+        <div class="chat-panel">
+          <header class="chat-head">
+            <div class="chat-identity">
+              <div class="ai-sigil" aria-hidden="true">
+                <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-opacity=".3"/><circle cx="20" cy="20" r="12.5" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-dasharray="1.5 4"/><path d="M20 6l4 14-4 14-4-14z" fill="currentColor"/><circle cx="20" cy="20" r="2" fill="#0e0c0a" stroke="currentColor"/></svg>
+              </div>
+              <div>
+                <p class="chat-name">SDFAKER <em>AI</em></p>
+                <p class="chat-sub"><span class="status-dot" aria-hidden="true"></span>Cerveau local · prêt à écouter</p>
+              </div>
+            </div>
+            <div class="chat-tools">
+              <span class="detect-pill" id="detectPill" title="Langue détectée sur le dernier message">
+                <span class="detect-pill-label">Détection</span>
+                <strong id="detectLang">FR</strong>
+              </span>
+              <button class="icon-btn" type="button" id="clearChat" title="Effacer la conversation" aria-label="Effacer la conversation">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v5M14 11v5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+          </header>
+          <div class="chat-signal" aria-hidden="true"></div>
+
+          <div class="chat-log" id="chatLog" role="log" aria-label="Conversation avec SDFAKER AI"></div>
+
+          <div class="prompt-strip" role="group" aria-label="Suggestions de questions">
+            <span class="prompt-strip-label">Essayer</span>
+            <button type="button" class="prompt-chip" data-prompt="Qui es-tu ?"><span class="chip-lang">FR</span>Qui es-tu ?</button>
+            <button type="button" class="prompt-chip" data-prompt="What is SDFAKER RIAN?"><span class="chip-lang">EN</span>What is SDFAKER RIAN?</button>
+            <button type="button" class="prompt-chip" data-prompt="Manao ahoana, iza ianao?"><span class="chip-lang">MG</span>Manao ahoana, iza ianao?</button>
+          </div>
+
+          <form class="composer" id="chatForm" autocomplete="off">
+            <div class="composer-field">
+              <label class="sr-only" for="userInput">Votre message pour SDFAKER AI</label>
+              <textarea id="userInput" name="message" rows="1" maxlength="500" placeholder="Écrivez votre message…" aria-describedby="composerHint"></textarea>
+              <div class="composer-meta">
+                <span id="composerHint">Entrée ↵ envoyer · Maj + Entrée retour à la ligne</span>
+                <span id="charCount" aria-live="off">0 / 500</span>
+              </div>
+            </div>
+            <button type="submit" class="send-btn" id="sendBtn" aria-label="Envoyer le message">
+              <span>Envoyer</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </form>
+          <p class="chat-footnote">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.5 8.5 8 10 4.5-1.5 8-5 8-10V6l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="m8.5 12 2.4 2.4 4.6-4.8" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+            Session sans mémoire : rafraîchir la page efface tout.
+          </p>
+        </div>
+
+        <aside class="side-rail" aria-label="Le cerveau de SDFAKER AI">
+          <section class="rail-card">
+            <header class="rail-head">
+              <span class="card-index">01</span>
+              <h3>Détection</h3>
+              <span class="card-tag">auto</span>
+            </header>
+            <p class="rail-intro">Trois lexiques veillent sur chaque message. Le français reste la voix par défaut.</p>
+            <ul class="lang-list" id="langList">
+              <li data-lang-row="fr">
+                <span class="lang-code">FR</span>
+                <span class="lang-info"><strong>Français</strong><small>bonjour · salut · merci</small></span>
+                <span class="lang-state">défaut</span>
+              </li>
+              <li data-lang-row="en">
+                <span class="lang-code">EN</span>
+                <span class="lang-info"><strong>English</strong><small>hello · hi · thanks</small></span>
+                <span class="lang-state">actif</span>
+              </li>
+              <li data-lang-row="mg">
+                <span class="lang-code">MG</span>
+                <span class="lang-info"><strong>Malagasy</strong><small>manao ahoana · misaotra</small></span>
+                <span class="lang-state">active</span>
+              </li>
+            </ul>
+          </section>
+
+          <section class="rail-card">
+            <header class="rail-head">
+              <span class="card-index">02</span>
+              <h3>Intentions</h3>
+              <span class="card-tag">05</span>
+            </header>
+            <ol class="intent-list">
+              <li><span>01</span>Salutation<em>hello</em></li>
+              <li><span>02</span>Identité<em>who</em></li>
+              <li><span>03</span>Le jeu<em>rian</em></li>
+              <li><span>04</span>Gratitude<em>merci</em></li>
+              <li><span>05</span>Repli<em>?</em></li>
+            </ol>
+            <p class="rail-foot">Correspondance par mots-clés, sans modèle lourd.</p>
+          </section>
+
+          <section class="rail-card rail-card--ephemeral">
+            <div class="ephemeral-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32"><path d="M16 3 5 7v8c0 7 4.7 12 11 14 6.3-2 11-7 11-14V7l-11-4Z" fill="none" stroke="currentColor" stroke-width="1.2"/><path d="M11 16h10M16 11v10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+            </div>
+            <h3>Sans mémoire</h3>
+            <p>Aucun cookie, aucun stockage, aucune trace. Vos mots n'existent que dans cette page.</p>
+            <p class="ephemeral-rule">Rafraîchir = recommencer.</p>
+          </section>
+
+          <blockquote class="rail-quote">
+            <p>« Une voix légère, portée par aucun réseau. »</p>
+            <footer>— WANDERGRAND</footer>
+          </blockquote>
+        </aside>
+      </div>
+    </section>
+
+    <section class="how-section wrap" id="cerveau" aria-labelledby="how-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Le cerveau</p>
+          <h2 id="how-title">Petit, mais à l'écoute.</h2>
+        </div>
+        <p class="section-copy">Pas de réseau, pas de modèle géant. Trois étapes, un lexique et un peu de patience pour laisser la réponse s'écrire.</p>
+      </div>
+
+      <div class="how-grid">
+        <article class="how-card">
+          <div class="how-top"><span class="how-index">01</span><span class="how-icon" aria-hidden="true">FR<small>EN</small></span></div>
+          <h3>Détecter la langue</h3>
+          <p>Chaque mot est comparé à un lexique français, anglais et malgache. Sans signal clair, la voix française prend le relais.</p>
+          <p class="how-meta">bonjour · hello · manao ahoana</p>
+        </article>
+        <article class="how-card">
+          <div class="how-top"><span class="how-index">02</span>
+            <span class="how-icon how-icon--intent" aria-hidden="true">
+              <svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="14" r="4" fill="none" stroke="currentColor" stroke-width="1"/><circle cx="14" cy="14" r="1.4" fill="currentColor"/><path d="M14 1v5M14 22v5M1 14h5M22 14h5" stroke="currentColor" stroke-width="1"/></svg>
+            </span>
+          </div>
+          <h3>Associer l'intention</h3>
+          <p>Salutation, identité, jeu, gratitude ou repli : un jeu de mots-clés oriente la question vers la bonne réponse.</p>
+          <p class="how-meta">05 intentions actives</p>
+        </article>
+        <article class="how-card">
+          <div class="how-top"><span class="how-index">03</span>
+            <span class="how-icon how-icon--typing" aria-hidden="true">
+              <svg viewBox="0 0 28 28"><rect x="2" y="7" width="24" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1"/><path d="M6 12h8M6 16h12M19 12h3" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg>
+            </span>
+          </div>
+          <h3>Répondre, caractère par caractère</h3>
+          <p>La réponse naît entièrement dans la page, puis se révèle par l'effet machine à écrire. Rien ne quitte votre appareil.</p>
+          <p class="how-meta">0 requête réseau</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="languages-section wrap" id="langues" aria-labelledby="languages-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span>Les voix</p>
+          <h2 id="languages-title">Trois langues, une même écoute.</h2>
+        </div>
+        <p class="section-copy">Choisissez une phrase pour l'envoyer directement à SDFAKER AI. La langue est détectée à partir des mots.</p>
+      </div>
+
+      <div class="language-grid">
+        <article class="language-card">
+          <header>
+            <span class="language-code">FR</span>
+            <div><h3>Français</h3><p>La voix de la maison</p></div>
+            <span class="lang-dot" aria-hidden="true"></span>
+          </header>
+          <div class="language-samples">
+            <button type="button" data-prompt="Bonjour"><span>Bonjour</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" data-prompt="Qui es-tu ?"><span>Qui es-tu ?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" data-prompt="Parle-moi du jeu SDFAKER RIAN"><span>Parle-moi du jeu</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <footer>bonjour · salut · merci · qui es-tu</footer>
+        </article>
+
+        <article class="language-card">
+          <header>
+            <span class="language-code">EN</span>
+            <div><h3>English</h3><p>The echo beyond the sea</p></div>
+            <span class="lang-dot" aria-hidden="true"></span>
+          </header>
+          <div class="language-samples">
+            <button type="button" data-prompt="Hello"><span>Hello</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" data-prompt="Who are you?"><span>Who are you?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" data-prompt="Tell me about the game SDFAKER RIAN"><span>Tell me about the game</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <footer>hello · hi · thanks · who are you</footer>
+        </article>
+
+        <article class="language-card">
+          <header>
+            <span class="language-code">MG</span>
+            <div><h3>Malagasy</h3><p>Ny feo eto an-tanana</p></div>
+            <span class="lang-dot" aria-hidden="true"></span>
+          </header>
+          <div class="language-samples">
+            <button type="button" data-prompt="Manao ahoana"><span>Manao ahoana</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" data-prompt="Iza ianao?"><span>Iza ianao?</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" data-prompt="Lazao ahy ny lalao SDFAKER RIAN"><span>Lazao ahy ny lalao</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12M13 7l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <footer>manao ahoana · misaotra · iza ianao</footer>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <div class="footer-brand">
+        <a class="brand brand--footer" href="#top">
+          <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <circle cx="24" cy="24" r="22" fill="none" stroke="currentColor" stroke-opacity=".3"/>
+            <path d="M24 5.5 30 24 24 42.5 18 24Z" fill="currentColor" opacity=".9"/>
+            <path d="M5.5 24 24 18 42.5 24 24 30Z" fill="none" stroke="currentColor" stroke-width="1.1" opacity=".7"/>
+          </svg>
+          <span class="brand-text"><span class="brand-top">WANDERGRAND</span><span class="brand-bottom">SDFAKER <em>AI</em></span></span>
+        </a>
+        <p>Une expérience locale, trilingue et éphémère.<br>Aucune donnée ne quitte cet appareil.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Navigation de pied de page">
+        <a href="#interface">Interface</a>
+        <a href="#cerveau">Le cerveau</a>
+        <a href="#langues">Langues</a>
+        <button type="button" data-new-session>Nouvelle session</button>
+      </nav>
+      <div class="footer-meta">
+        <span class="footer-seal">WG · 001</span>
+        <p>© <span id="year">2026</span> WANDERGRAND<br><span>HTML · CSS · JavaScript purs</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <p id="srAnnouncer" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
