@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WANDERGRAND - Independent Game Studio</title>
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --panel-bg: #121216;
+            --text-main: #e0e0e0;
+            --text-muted: #888;
+            --accent: #e63946;
+            --accent-hover: #ff4d5a;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: var(--panel-bg);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .logo span { color: var(--accent); }
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+        nav button {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1em;
+            cursor: pointer;
+            padding: 10px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        nav button:hover, nav button.active {
+            color: var(--accent);
+        }
+        main {
+            flex: 1;
+            padding: 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h1 { font-size: 3em; margin-bottom: 10px; }
+        h2 { color: var(--accent); }
+        p { line-height: 1.6; font-size: 1.1em; color: var(--text-muted); }
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background-color: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover { background-color: var(--accent-hover); }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        .card {
+            background-color: var(--panel-bg);
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: var(--panel-bg);
+            color: var(--text-muted);
+            border-top: 1px solid #222;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">WANDER<span>GRAND</span></div>
+        <nav>
+            <button class="active" onclick="openTab('home', this)">Home</button>
+            <button onclick="openTab('web-games', this)">Web Games</button>
+            <button onclick="openTab('desktop-games', this)">Desktop Games</button>
+            <button onclick="openTab('software', this)">Software</button>
+            <button onclick="openTab('ai', this)">SDFAKER AI</button>
+            <button onclick="openTab('about', this)">About</button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 1. HOME -->
+        <div id="home" class="tab-content active">
+            <h1>Welcome to WANDERGRAND</h1>
+            <p>An independent studio creating immersive experiences, from dark fantasy action-RPGs to advanced local AI systems. We explore the boundaries between technology and art.</p>
+            <h2>Latest Projects</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>SDFAKER RIAN</h3>
+                    <p>An action-RPG set on a mysterious rainy island. Fight the Slaches, find the 15 keys, and uncover the truth about the false god.</p>
+                </div>
+                <div class="card">
+                    <h3>SDFAKER AI</h3>
+                    <p>A lightweight, ultra-fast local AI system designed to run offline without massive cloud servers.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. WEB GAMES -->
+        <div id="web-games" class="tab-content">
+            <h1>Web Games</h1>
+            <p>Play our games directly in your browser.</p>
+            <div class="grid">
+                <div class="card">
+                    <h2 style="margin-top:0;">SDFAKER RIAN (Web Version)</h2>
+                    <p>The prototype playable version. Explore the island, fight enemies, and test the gameplay mechanics.</p>
+                    <!-- Ce lien pointera vers ton jeu quand tu l'auras uploadé -->
+                    <a href="./game/index.html" class="btn">▶ PLAY NOW</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. DESKTOP GAMES -->
+        <div id="desktop-games" class="tab-content">
+            <h1>Desktop Games</h1>
+            <p>Native experiences built for performance (Windows & Linux).</p>
+            <div class="card">
+                <h2 style="margin-top:0;">SDFAKER RIAN (Native C++ Version)</h2>
+                <p>The full desktop version built with C++, SDL2, and OpenGL 4.6. Experience the true vision with full 3D graphics, dynamic rain, and cel-shaded anime style.</p>
+                <p><em>Currently in development. Coming soon.</em></p>
+            </div>
+        </div>
+
+        <!-- 4. SOFTWARE -->
+        <div id="software" class="tab-content">
+            <h1>Software & Tools</h1>
+            <p>Powerful tools developed by WANDERGRAND.</p>
+            <div class="card">
+                <h2 style="margin-top:0;">Wandergrand Engine / Editor</h2>
+                <p>A custom, all-in-one 3D, 2D, Video, and Audio editing suite. Built from scratch for creators who need full control over their workflow.</p>
+            </div>
+        </div>
+
+        <!-- 5. SDFAKER AI -->
+        <div id="ai" class="tab-content">
+            <h1>SDFAKER AI</h1>
+            <p>Intelligence without the cloud.</p>
+            <div class="card">
+                <h2 style="margin-top:0;">Next-Gen Local AI</h2>
+                <p>SDFAKER AI is a highly optimized, 600KB local assistant. It runs entirely on your machine, ensuring absolute privacy and zero latency. It understands context, generates code, and assists with development.</p>
+            </div>
+        </div>
+
+        <!-- 6. ABOUT -->
+        <div id="about" class="tab-content">
+            <h1>About WANDERGRAND</h1>
+            <p><strong>Founder & Creator:</strong> Randriamanantiana Judickael</p>
+            <p>WANDERGRAND is a solo development studio driven by a passion for pushing technical boundaries. From building custom rendering engines in C++ to designing complex game mechanics, the goal is to create unique, atmospheric, and memorable experiences.</p>
+            <h2>Contact</h2>
+            <p>For business inquiries, collaborations, or feedback:</p>
+            <p>📧 Email: contact@wandergrand.com (placeholder)</p>
+            <p>🐙 GitHub: <a href="https://github.com/WANDERGRANDwg" style="color:var(--accent);">WANDERGRANDwg</a></p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2024 WANDERGRAND. All rights reserved. Created by Randriamanantiana Judickael.
+    </footer>
+
+    <script>
+        function openTab(tabName, btnElement) {
+            // Cacher tous les onglets
+            var contents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
+            }
+            // Retirer la classe active de tous les boutons
+            var buttons = document.querySelectorAll("nav button");
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove("active");
+            }
+            // Afficher l'onglet cliqué et activer le bouton
+            document.getElementById(tabName).classList.add("active");
+            btnElement.classList.add("active");
+        }
+    </script>
+</body>
+</html>
