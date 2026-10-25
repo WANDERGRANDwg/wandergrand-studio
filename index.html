@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0906">
+<meta name="description" content="WanderGrand Studio — independent game development, experiments and tools.">
+<title>WanderGrand Studio — Independent Game Development</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#0b0906;--abyss:#14100a;--panel:#1c150d;
+  --silk:#e0a93b;--silk-deep:#8a6420;
+  --bone:#eadfca;--ash:#9c8f8a;--brass:#b8a06a;--line:#3a2f1e;
+  --max:1160px;
+  --display:"Cinzel","Trajan Pro","Times New Roman",serif;
+  --body:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--void);color:var(--bone);font-family:var(--body);font-size:1.2rem;line-height:1.65;background-image:radial-gradient(ellipse at 50% -10%,#33230d 0%,transparent 55%);background-repeat:no-repeat}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.wrap{width:min(var(--max),calc(100% - 44px));margin-inline:auto}
+header{position:sticky;top:0;z-index:20;background:rgba(11,9,6,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:78px;gap:24px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;letter-spacing:.14em;font-size:.95rem}
+.brand svg{width:26px;height:26px;color:var(--silk)}
+.navlinks{display:flex;align-items:center;gap:34px;font-family:var(--display);font-size:.82rem;letter-spacing:.12em;color:var(--ash)}
+.navlinks a{position:relative;padding:6px 0;transition:color .2s}
+.navlinks a:hover{color:var(--bone)}
+.navlinks a:not(.contact):after{content:"";position:absolute;left:50%;bottom:0;width:0;height:1px;background:var(--silk);transition:width .25s,left .25s}
+.navlinks a:not(.contact):hover:after{width:100%;left:0}
+.navlinks .contact{padding:9px 16px;border:1px solid var(--brass);color:var(--brass);transition:background .2s,color .2s}
+.navlinks .contact:hover{background:var(--brass);color:var(--void)}
+.menu{display:none;background:none;border:1px solid var(--line);color:var(--bone);font-family:var(--display);letter-spacing:.1em;padding:8px 12px;cursor:pointer}
+.hero{position:relative;text-align:center;padding:0 0 110px;overflow:hidden;border-bottom:1px solid var(--line)}
+.thread{display:block;margin:0 auto;width:60px;height:150px;color:var(--silk)}
+.thread line{stroke:currentColor;stroke-width:1.5;stroke-dasharray:130;stroke-dashoffset:130;animation:draw 1.8s ease-out .2s forwards}
+.thread .spindle{opacity:0;animation:appear .6s ease-out 1.7s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes appear{to{opacity:1}}
+.hero h1{font-family:var(--display);font-weight:900;margin:14px 0 6px;font-size:clamp(2.6rem,9vw,6.4rem);line-height:1.02;letter-spacing:.06em;text-shadow:0 0 40px rgba(224,169,59,.35)}
+.hero .studio-tag{font-family:var(--display);color:var(--silk);letter-spacing:.5em;font-size:clamp(.8rem,2vw,1.05rem);margin:0 0 26px}
+.hero-copy{max-width:600px;margin:0 auto 34px;color:var(--ash);font-style:italic;font-size:1.3rem}
+.actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 28px;font-family:var(--display);font-size:.84rem;letter-spacing:.14em;border:1px solid var(--brass);color:var(--bone);transition:background .2s,color .2s,box-shadow .2s}
+.btn:hover{background:var(--brass);color:var(--void)}
+.btn-primary{background:var(--silk-deep);border-color:var(--silk)}
+.btn-primary:hover{background:var(--silk);color:#0b0906;box-shadow:0 0 24px rgba(224,169,59,.45)}
+.ornament{display:flex;align-items:center;justify-content:center;gap:14px;color:var(--brass);margin:0 auto 18px;max-width:340px}
+.ornament:before,.ornament:after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--brass))}
+.ornament:after{background:linear-gradient(270deg,transparent,var(--brass))}
+.ornament svg{width:14px;height:14px;flex:none}
+section{padding:96px 0}
+.section-head{text-align:center;margin-bottom:52px}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(1.9rem,4.5vw,3rem);letter-spacing:.1em;margin:0 0 12px}
+.section-desc{max-width:520px;margin:0 auto;color:var(--ash);font-style:italic}
+.games{background:var(--abyss)}
+.game-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.game-card:first-child{grid-column:span 2}
+.frame{position:relative;background:var(--panel);border:1px solid var(--line);transition:border-color .25s,transform .25s,box-shadow .25s}
+.frame:before,.frame:after{content:"";position:absolute;width:16px;height:16px;border:1px solid var(--brass);pointer-events:none;z-index:2;transition:border-color .25s}
+.frame:before{top:-1px;left:-1px;border-right:0;border-bottom:0}
+.frame:after{bottom:-1px;right:-1px;border-left:0;border-top:0}
+.frame:hover{border-color:var(--silk-deep);transform:translateY(-4px);box-shadow:0 14px 40px rgba(0,0,0,.55),0 0 30px rgba(138,100,32,.3)}
+.frame:hover:before,.frame:hover:after{border-color:var(--silk)}
+.game-card a{display:flex;flex-direction:column;height:100%}
+.thumb{position:relative;aspect-ratio:16/10;background:#0e0b07;overflow:hidden}
+.game-card:first-child .thumb{aspect-ratio:16/8.4}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s,filter .5s;filter:saturate(.8) brightness(.92)}
+.frame:hover .thumb img{transform:scale(1.04);filter:saturate(1) brightness(1)}
+.thumb:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(20,16,10,.85));pointer-events:none}
+.thumb.missing{display:grid;place-items:center}
+.thumb.missing:before{content:"✦";font-size:2.4rem;color:var(--silk-deep)}
+.body{padding:20px 22px 24px;display:flex;flex-direction:column;gap:6px}
+.kind{font-style:italic;color:var(--brass);font-size:1.02rem}
+.title{font-family:var(--display);font-weight:700;font-size:1.25rem;letter-spacing:.08em;margin:0}
+.go{margin-top:8px;font-family:var(--display);font-size:.78rem;letter-spacing:.16em;color:var(--silk);transition:letter-spacing .25s,color .25s}
+.frame:hover .go{letter-spacing:.24em;color:#f2c76b}
+.software-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.software-card .thumb{aspect-ratio:16/9}
+.status{display:inline-block;align-self:flex-start;margin-top:8px;font-family:var(--display);font-size:.7rem;letter-spacing:.14em;color:var(--brass);border:1px solid var(--brass);padding:4px 10px}
+.studio{background:var(--abyss);border-top:1px solid var(--line)}
+.studio-inner{max-width:720px;margin:0 auto;text-align:center}
+.studio-inner p{color:#cfc4b0}
+.values{display:grid;grid-template-columns:repeat(2,1fr);gap:0;margin-top:38px;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.value{padding:18px 12px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);font-family:var(--display);font-size:.84rem;letter-spacing:.12em}
+footer{border-top:1px solid var(--line);padding:34px 0;text-align:center;color:var(--ash);font-size:1rem}
+.footer-brand{display:block;font-family:var(--display);color:var(--bone);letter-spacing:.2em;margin-bottom:6px}
+@media(max-width:900px){
+  .game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .software-grid{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  body{font-size:1.1rem}
+  .wrap{width:calc(100% - 30px)}
+  .nav{height:68px}
+  .menu{display:block}
+  .navlinks{display:none;position:absolute;top:68px;left:0;right:0;flex-direction:column;align-items:stretch;gap:6px;padding:16px 20px 22px;background:var(--abyss);border-bottom:1px solid var(--line)}
+  .navlinks.open{display:flex}
+  .navlinks a{padding:12px 0}
+  .navlinks .contact{text-align:center}
+  section{padding:64px 0}
+  .game-grid{grid-template-columns:1fr}
+  .game-card:first-child{grid-column:auto}
+  .game-card:first-child .thumb{aspect-ratio:16/10}
+  .values{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .thread line{stroke-dashoffset:0}
+  .thread .spindle{opacity:1}
+}
+
+body{background-image:radial-gradient(ellipse at 50% -5%,#3a290f 0%,transparent 60%),radial-gradient(ellipse at 50% 115%,#241a0a 0%,transparent 55%);background-attachment:fixed}
+#rain{position:fixed;inset:0;width:100%;height:100%;z-index:5;pointer-events:none}
+.games,.studio{background:rgba(20,16,10,.8)}
+.hero:after,.hero:before{display:none}
+.hero .wrap{position:relative;z-index:1}
+.skyline{position:absolute;left:0;right:0;bottom:0;width:100%;height:40%;min-height:170px;opacity:.9;pointer-events:none}
+.hero{background:radial-gradient(ellipse at 50% 100%,rgba(224,169,59,.16),transparent 65%)}
+
+
+:root{--gold:#e0a93b;--brass:#a9a49a;--line:#35332e}
+body{background-image:radial-gradient(ellipse at 50% -5%,#2b2b30 0%,transparent 60%),radial-gradient(ellipse at 50% 115%,#1d1d20 0%,transparent 55%)}
+.hero{background:radial-gradient(ellipse at 50% 100%,rgba(255,255,255,.08),transparent 65%)}
+.mountain{position:absolute;left:0;right:0;bottom:0;width:100%;height:80%;opacity:.42;pointer-events:none}
+.hero h1,h2,.title,.brand,.footer-brand,.value{font-family:"Cinzel Decorative","Cinzel","Times New Roman",serif}
+.hero h1{text-shadow:0 2px 14px rgba(0,0,0,.85),0 0 40px rgba(224,169,59,.3)}
+.hero h1,h2,.title,.brand span,.footer-brand,.value,.kind,.status,.navlinks .contact,.btn,.go,.studio-tag{color:var(--gold)}
+.thread,.brand svg{color:#d9d6cc}
+.navlinks a:not(.contact):after{background:#d9d6cc}
+.frame:hover{border-color:#6d6a62}
+.frame:hover:before,.frame:hover:after{border-color:#e9e5da}
+.btn-primary{background:#25231f;border-color:#a9a49a}
+.btn-primary:hover{background:#e9e5da;color:#0b0906;box-shadow:0 0 24px rgba(255,255,255,.25)}
+.thumb.missing:before{color:#6d6a62}
+</style>
+</head>
+<body>
+<canvas id="rain" aria-hidden="true"></canvas>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="WanderGrand Studio home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 2 L22 12 L12 22 L2 12 Z"/><path d="M12 7 L17 12 L12 17 L7 12 Z"/></svg>
+      <span>WANDERGRAND</span>
+    </a>
+    <button class="menu" id="menuBtn" aria-label="Open navigation" aria-expanded="false">MENU</button>
+    <nav class="navlinks" id="navlinks">
+      <a href="#games">Games</a>
+      <a href="#software">Software</a>
+      <a href="#studio">The Studio</a>
+      <a class="contact" href="mailto:wandergrandwg@gmail.com">Contact</a>
+    </nav>
+  </div>
+</header>
+<main id="home">
+  <section class="hero" style="padding-top:0">
+<svg class="mountain" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><defs><linearGradient id="neige" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f1e8" stop-opacity=".95"/><stop offset=".5" stop-color="#bdb8aa" stop-opacity=".5"/><stop offset="1" stop-color="#0b0906" stop-opacity="0"/></linearGradient></defs><path d="M0 500 L0 410 L120 340 L220 390 L330 260 L430 330 L520 180 L600 60 L660 130 L720 100 L800 210 L870 170 L960 290 L1050 235 L1130 335 L1200 305 L1200 500 Z" fill="url(#neige)"/><path d="M600 60 L520 180 L562 168 L582 205 L612 152 L642 208 L660 130 L630 100 Z" fill="#fbf9f3" opacity=".9"/></svg>
+<svg class="skyline" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M0 200 L0 170 L0 170 L0 141 L27 86 L54 141 L54 170 L84 170 L84 146 L102 82 L121 146 L121 170 L134 170 L134 113 L162 80 L191 113 L191 170 L230 170 L230 137 L263 105 L296 137 L296 170 L308 170 L308 124 L338 90 L369 124 L369 170 L386 170 L386 115 L405 58 L425 115 L425 170 L436 170 L436 143 L471 99 L506 143 L506 170 L536 170 L536 114 L554 47 L573 114 L573 170 L595 170 L595 136 L613 104 L632 136 L632 170 L659 170 L659 132 L680 76 L701 132 L701 170 L715 170 L715 143 L749 77 L783 143 L783 170 L802 170 L802 107 L836 66 L871 107 L871 170 L884 170 L884 110 L919 68 L954 110 L954 170 L975 170 L975 115 L995 40 L1015 115 L1015 170 L1027 170 L1027 147 L1062 78 L1097 147 L1097 170 L1113 170 L1113 107 L1145 43 L1178 107 L1178 170 L1200 170 L1200 200 Z" fill="#0e0b07"/></svg>
+    <svg class="thread" viewBox="0 0 60 150" aria-hidden="true">
+      <line x1="30" y1="0" x2="30" y2="120"/>
+      <g class="spindle" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M30 120 L38 132 L30 146 L22 132 Z" fill="#8a6420"/>
+        <path d="M30 124 L34 132 L30 140 L26 132 Z"/>
+      </g>
+    </svg>
+    <div class="wrap">
+      <h1>WANDERGRAND</h1>
+      <p class="studio-tag">STUDIO</p>
+      <p class="hero-copy">A small independent studio weaving games, prototypes and tools from a single thread: curiosity.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#games">Enter the games</a>
+        <a class="btn" href="#studio">The studio</a>
+      </div>
+    </div>
+  </section>
+  <section class="games" id="games">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="ornament"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1 L23 12 L12 23 L1 12 Z"/></svg></div>
+        <h2>Web Games</h2>
+        <p class="section-desc">Playable projects and experiments. Choose one to launch it in your browser.</p>
+      </div>
+      <div class="game-grid">
+        <article class="game-card frame">
+          <a href="./game%20web/sdfaker-fight/index.html">
+            <div class="thumb"><img src="./image/sdfaker%20fight.png" alt="SDFAKER Fight gameplay screenshot" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></div>
+            <div class="body"><span class="kind">Action — Web game</span><h3 class="title">SDFAKER Fight</h3><span class="go">PLAY</span></div>
+          </a>
+        </article>
+        <article class="game-card frame">
+          <a href="./game%20web/test1/index.html">
+            <div class="thumb"><img src="./image/test1.png" alt="Web Game 01 screenshot" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></div>
+            <div class="body"><span class="kind">Prototype</span><h3 class="title">Web Game 01</h3><span class="go">PLAY</span></div>
+          </a>
+        </article>
+        <article class="game-card frame">
+          <a href="./game%20web/test2/index.html">
+            <div class="thumb"><img src="./image/test2.png" alt="Web Game 02 screenshot" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></div>
+            <div class="body"><span class="kind">Prototype</span><h3 class="title">Web Game 02</h3><span class="go">PLAY</span></div>
+          </a>
+        </article>
+        <article class="game-card frame">
+          <a href="./game%20web/test3/index.html">
+            <div class="thumb"><img src="./image/test3.png" alt="Web Game 03 screenshot" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></div>
+            <div class="body"><span class="kind">Prototype — 3D</span><h3 class="title">Web Game 03</h3><span class="go">PLAY</span></div>
+          </a>
+        </article>
+        <article class="game-card frame">
+          <a href="./game%20web/test4/index.html">
+            <div class="thumb"><img src="./image/test4.png" alt="Web Game 04 screenshot" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></div>
+            <div class="body"><span class="kind">Prototype — 2D</span><h3 class="title">Web Game 04</h3><span class="go">PLAY</span></div>
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="software" id="software">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="ornament"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1 L23 12 L12 23 L1 12 Z"/></svg></div>
+        <h2>Software</h2>
+        <p class="section-desc">Tools and engines currently being forged. More will be shown as they take shape.</p>
+      </div>
+      <div class="software-grid">
+        <article class="software-card frame">
+          <div class="thumb"><img src="./logiciel/wandergrand/2026-10-20_21-30.png" alt="WANDERGRAND software screenshot" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></div>
+          <div class="body"><h3 class="title">WANDERGRAND</h3><span class="status">IN DEVELOPMENT</span></div>
+        </article>
+        <article class="software-card frame">
+          <div class="thumb"><img src="./logiciel/sdfaker%20engine%20Vmada/Capture%20d%E2%80%99%C3%A9cran_2026-10-25_16-23-09.png" alt="SDFAKER Engine VMada screenshot" loading="lazy" onerror="this.parentElement.classList.add('missing');this.remove()"></div>
+          <div class="body"><h3 class="title">SDFAKER Engine VMada</h3><span class="status">IN DEVELOPMENT</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+  <section class="studio" id="studio">
+    <div class="wrap studio-inner">
+      <div class="ornament"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1 L23 12 L12 23 L1 12 Z"/></svg></div>
+      <h2>Independent by choice</h2>
+      <p>WanderGrand Studio is an independent space for making games and practical tools. Every project is a chance to learn, test an idea and turn a small concept into something people can play.</p>
+      <p>We build step by step, with accessible technology, plenty of experiments and a look of our own.</p>
+      <div class="values">
+        <div class="value">Independent spirit</div>
+        <div class="value">Hands-on creation</div>
+        <div class="value">Learn by building</div>
+        <div class="value">Made with purpose</div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="wrap">
+    <span class="footer-brand">WANDERGRAND STUDIO</span>
+    <span>Independent projects, built one step at a time. © <span id="year"></span></span>
+  </div>
+</footer>
+<script>
+const menuBtn = document.getElementById('menuBtn');
+const navlinks = document.getElementById('navlinks');
+menuBtn.addEventListener('click', () => {
+  const open = navlinks.classList.toggle('open');
+  menuBtn.setAttribute('aria-expanded', String(open));
+});
+navlinks.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+  navlinks.classList.remove('open');
+  menuBtn.setAttribute('aria-expanded', 'false');
+}));
+document.getElementById('year').textContent = new Date().getFullYear();
+(function(){
+  const c = document.getElementById('rain');
+  if (!c) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { c.remove(); return; }
+  const x = c.getContext('2d');
+  let w, h, drops = [];
+  function goutte(initiale){ return { x: Math.random()*w, y: initiale ? Math.random()*h : -20, l: 12+Math.random()*18, v: 11+Math.random()*9, a: .15+Math.random()*.25 }; }
+  function taille(){
+    const r = window.devicePixelRatio || 1;
+    w = innerWidth; h = innerHeight;
+    c.width = w*r; c.height = h*r; x.setTransform(r,0,0,r,0,0);
+    drops = Array.from({length: Math.min(Math.round(w*h/9000), 220)}, () => goutte(true));
+  }
+  function image(){
+    x.clearRect(0,0,w,h);
+    for (const d of drops){
+      x.strokeStyle = 'rgba(222,228,238,' + d.a + ')';
+      x.beginPath(); x.moveTo(d.x, d.y); x.lineTo(d.x - d.l*.2, d.y + d.l); x.stroke();
+      d.y += d.v; d.x -= d.v*.2;
+      if (d.y > h || d.x < -20){ Object.assign(d, goutte(false)); d.x = Math.random()*(w+100); }
+    }
+    requestAnimationFrame(image);
+  }
+  addEventListener('resize', taille);
+  taille(); image();
+})();
+
+</script>
+</body>
+</html>
