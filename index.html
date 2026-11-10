@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090f16">
+    <meta name="description" content="Wandergrand Studio — independent games and creative software crafted in Madagascar.">
+    <title>WANDERGRAND STUDIO — Worlds Beyond</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a class="skip-link" href="#main-content" data-i18n="skip_link">Skip to content</a>
+    <div class="page-grain" aria-hidden="true"></div>
+    <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
+
+    <header class="site-header" id="site-header">
+        <a class="brand" href="#home" aria-label="Wandergrand Studio home">
+            <span class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 64 64" role="img">
+                    <path d="M32 5 39 20 55 13 47 29 60 37 43 40 45 58 32 47 19 58 21 40 4 37 17 29 9 13 25 20Z"/>
+                    <path d="M32 15 36 29 49 32 36 36 32 50 28 36 15 32 28 29Z"/>
+                    <circle cx="32" cy="32" r="4"/>
+                </svg>
+            </span>
+            <span class="brand-copy">
+                <span class="brand-name">WANDERGRAND</span>
+                <span class="brand-subtitle">INDEPENDENT STUDIO</span>
+            </span>
+        </a>
+
+        <button class="menu-toggle" id="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="primary-nav">
+            <span></span><span></span><span></span>
+        </button>
+
+        <nav class="primary-nav" id="primary-nav" aria-label="Main navigation">
+            <a href="#home" data-i18n="nav_home" class="nav-link active">Home</a>
+            <a href="#web-game" data-i18n="nav_web_game" class="nav-link">Game Web</a>
+            <a href="#game" data-i18n="nav_game" class="nav-link">Game</a>
+            <a href="#software" data-i18n="nav_software" class="nav-link">Software</a>
+            <a href="#contact" data-i18n="nav_contact" class="nav-link">Contact</a>
+        </nav>
+
+        <div class="header-tools">
+            <span class="language-label" aria-hidden="true">LANG</span>
+            <div class="lang-switcher" role="group" aria-label="Choose language">
+                <button type="button" data-lang="en" class="active" aria-pressed="true">EN</button>
+                <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+                <button type="button" data-lang="mg" aria-pressed="false">MG</button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- HERO -->
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="hero-atmosphere" aria-hidden="true">
+                <span class="mist mist-one"></span><span class="mist mist-two"></span>
+                <span class="star star-one">✦</span><span class="star star-two">·</span><span class="star star-three">✧</span>
+                <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+            </div>
+            <div class="hero-inner">
+                <div class="hero-copy" data-reveal>
+                    <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="hero_kicker">A WORLD OF OUR OWN</span><span class="eyebrow-line"></span></p>
+                    <h1 id="hero-title"><span data-i18n="hero_title_line1">Beyond the</span><br><em data-i18n="hero_title_line2">known world.</em></h1>
+                    <p class="hero-description" data-i18n="hero_subtitle">Independent worlds, unforgettable journeys, and creative tools born from imagination.</p>
+                    <div class="hero-actions">
+                        <a class="button button-primary" href="#game"><span data-i18n="hero_cta_primary">Discover our worlds</span><span class="button-arrow" aria-hidden="true">↗</span></a>
+                        <a class="text-link" href="#software"><span data-i18n="hero_cta_secondary">Explore our creations</span><span aria-hidden="true">⟶</span></a>
+                    </div>
+                    <div class="hero-signature"><span class="signature-rule"></span><span data-i18n="hero_signature">IMAGINED IN MADAGASCAR · MADE FOR EVERYWHERE</span></div>
+                </div>
+
+                <div class="hero-art" data-reveal aria-label="Wandergrand ornamental studio emblem">
+                    <div class="art-halo"></div>
+                    <div class="art-ring ring-outer"></div>
+                    <div class="art-ring ring-inner"></div>
+                    <svg class="hero-emblem" viewBox="0 0 420 500" role="img" aria-label="Original Wandergrand crest">
+                        <defs>
+                            <linearGradient id="crestMetal" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#f2ead7"/>
+                                <stop offset=".5" stop-color="#a8b7b7"/>
+                                <stop offset="1" stop-color="#71858b"/>
+                            </linearGradient>
+                            <linearGradient id="crestRed" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#bd6b68"/>
+                                <stop offset="1" stop-color="#713b48"/>
+                            </linearGradient>
+                        </defs>
+                        <path class="crest-outline" d="M210 28 C270 76 326 84 354 88 L342 267 C331 351 277 414 210 462 C143 414 89 351 78 267 L66 88 C94 84 150 76 210 28Z"/>
+                        <path class="crest-inner" d="M210 53 C262 92 306 99 331 103 L321 263 C310 333 267 384 210 427 C153 384 110 333 99 263 L89 103 C114 99 158 92 210 53Z"/>
+                        <path class="crest-wing" d="M207 145 C162 104 119 119 126 160 C132 196 174 211 205 233 C170 219 132 229 130 259 C128 289 172 303 207 278Z"/>
+                        <path class="crest-wing" d="M213 145 C258 104 301 119 294 160 C288 196 246 211 215 233 C250 219 288 229 290 259 C292 289 248 303 213 278Z"/>
+                        <path class="crest-stem" d="M210 116 C201 177 202 253 210 336 C218 253 219 177 210 116Z"/>
+                        <path class="crest-blade" d="M210 176 C178 214 177 272 210 316 C243 272 242 214 210 176Z"/>
+                        <path class="crest-blade-line" d="M210 190 L210 300 M188 226 L210 250 L232 226"/>
+                        <path class="crest-lower" d="M154 334 Q210 366 266 334 M174 359 Q210 377 246 359"/>
+                        <circle class="crest-dot" cx="210" cy="91" r="5"/>
+                        <path class="crest-star" d="M210 66 L215 78 L228 83 L215 88 L210 101 L205 88 L192 83 L205 78Z"/>
+                        <path class="crest-red" d="M210 390 L225 414 L210 435 L195 414Z"/>
+                    </svg>
+                    <span class="art-caption art-caption-top" data-i18n="art_top">THE WANDERER'S CREST</span>
+                    <span class="art-caption art-caption-bottom">W · G</span>
+                    <span class="art-side-note" data-i18n="art_side">EST. IN MADAGASCAR</span>
+                </div>
+            </div>
+            <a class="scroll-cue" href="#web-game" aria-label="Scroll to projects"><span class="scroll-cue-line"></span><span data-i18n="scroll_label">DESCEND INTO OUR WORLD</span><span class="scroll-cue-arrow">⌄</span></a>
+        </section>
+
+        <!-- INTRO STRIP -->
+        <div class="manifesto-strip" aria-label="Studio values">
+            <span data-i18n="strip_one">WORLDS TO EXPLORE</span><i>✦</i>
+            <span data-i18n="strip_two">TOOLS TO CREATE</span><i>✦</i>
+            <span data-i18n="strip_three">IDEAS WITHOUT BORDERS</span>
+        </div>
+
+        <!-- WEB GAME -->
+        <section id="web-game" class="section project-section" aria-labelledby="web-game-title">
+            <div class="section-heading" data-reveal>
+                <div>
+                    <p class="section-kicker"><span>01</span><span data-i18n="web_kicker">PLAY IN YOUR BROWSER</span></p>
+                    <h2 class="section-title" id="web-game-title" data-i18n="web_game_title">Web games</h2>
+                </div>
+                <p class="section-intro" data-i18n="web_intro">Small portals to other worlds. Open, play, and discover.</p>
+            </div>
+            <div class="project-grid web-grid">
+                <article class="project-card web-card" data-reveal>
+                    <div class="card-visual web-visual" aria-hidden="true">
+                        <div class="web-visual-moon"></div><div class="web-visual-ridge ridge-back"></div><div class="web-visual-ridge ridge-front"></div>
+                        <span class="visual-mark">WG <b>✦</b></span>
+                        <span class="visual-index">WEB / 001</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta"><span class="status status-dev" data-i18n="status_dev">In Development</span><span class="card-category" data-i18n="category_web">BROWSER GAME</span></div>
+                        <h3>SDFAKER <span>STREET</span></h3>
+                        <p data-i18n="web_game_desc">A new street-racing experience is taking shape. More details will be revealed soon.</p>
+                        <span class="card-footnote" data-i18n="coming_soon">A NEW JOURNEY IS TAKING SHAPE <span aria-hidden="true">↗</span></span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- GAME -->
+        <section id="game" class="section project-section alternate-section" aria-labelledby="game-title">
+            <div class="section-heading" data-reveal>
+                <div>
+                    <p class="section-kicker"><span>02</span><span data-i18n="game_kicker">WORLDS & ADVENTURES</span></p>
+                    <h2 class="section-title" id="game-title" data-i18n="game_title">Our games</h2>
+                </div>
+                <p class="section-intro" data-i18n="game_intro">Places to get lost in. Stories waiting to be lived.</p>
+            </div>
+            <div class="project-grid">
+                <article class="project-card game-card" data-reveal>
+                    <div class="image-wrap">
+                        <img src="assets/rain.png" alt="SDFAKER RAIN game artwork" class="card-img" loading="lazy" onerror="this.closest('.image-wrap').classList.add('image-missing'); this.style.display='none'">
+                        <div class="image-fallback rain-fallback" aria-hidden="true"><span>SDFAKER</span><strong>RAIN</strong><i>✦</i></div>
+                        <span class="image-overlay-label" data-i18n="game_art_label">AN ADVENTURE IN THE MAKING</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta"><span class="status status-dev" data-i18n="status_dev">In Development</span><span class="card-category" data-i18n="category_game">VIDEO GAME</span></div>
+                        <h3>SDFAKER RAIN</h3>
+                        <p data-i18n="rain_desc">A mysterious adventure shaped by exploration, forgotten places, and encounters.</p>
+                        <span class="card-footnote" data-i18n="in_the_works">IN THE WORKS <span aria-hidden="true">✧</span></span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- SOFTWARE -->
+        <section id="software" class="section project-section" aria-labelledby="software-title">
+            <div class="section-heading" data-reveal>
+                <div>
+                    <p class="section-kicker"><span>03</span><span data-i18n="software_kicker">MADE TO BUILD</span></p>
+                    <h2 class="section-title" id="software-title" data-i18n="software_title">Creative tools</h2>
+                </div>
+                <p class="section-intro" data-i18n="software_intro">Our own instruments for shaping ideas, worlds, and experiences.</p>
+            </div>
+            <div class="project-grid software-grid">
+                <article class="project-card software-card" data-reveal>
+                    <div class="image-wrap software-image-wrap">
+                        <img src="assets/vmada.png" alt="SDFAKER Vmada software artwork" class="card-img" loading="lazy" onerror="this.closest('.image-wrap').classList.add('image-missing'); this.style.display='none'">
+                        <div class="image-fallback vmada-fallback" aria-hidden="true"><span>SDFAKER</span><strong>VMADA</strong><i>◇</i></div>
+                        <span class="image-overlay-label">3D CREATION SUITE</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta"><span class="status status-test" data-i18n="status_test">Test Version</span><span class="card-category" data-i18n="category_software">CREATIVE SOFTWARE</span></div>
+                        <h3>SDFAKER VMADA</h3>
+                        <p data-i18n="vmada_desc">A 3D creation software built with Malagasy creators in mind.</p>
+                        <div class="download-buttons">
+                            <a href="downloads/SDFAKER_Windows.zip" class="button button-download" download><span class="platform-icon">▣</span><span>Windows</span><span class="download-arrow">↓</span></a>
+                            <a href="downloads/SDFAKER_Linux.tar.gz" class="button button-download" download><span class="platform-icon">⌘</span><span>Linux</span><span class="download-arrow">↓</span></a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card software-card" data-reveal>
+                    <div class="image-wrap software-image-wrap">
+                        <img src="assets/engine.png" alt="SDFAKER Engine Vmage software artwork" class="card-img" loading="lazy" onerror="this.closest('.image-wrap').classList.add('image-missing'); this.style.display='none'">
+                        <div class="image-fallback engine-fallback" aria-hidden="true"><span>SDFAKER</span><strong>ENGINE</strong><i>⌁</i></div>
+                        <span class="image-overlay-label">GAME DEVELOPMENT</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta"><span class="status status-dev" data-i18n="status_dev">In Development</span><span class="card-category" data-i18n="category_engine">GAME ENGINE</span></div>
+                        <h3>SDFAKER ENGINE <span>VMAGE</span></h3>
+                        <p data-i18n="engine_desc">A game engine designed to make game creation more accessible to Malagasy creators.</p>
+                        <span class="card-footnote" data-i18n="in_the_works">IN THE WORKS <span aria-hidden="true">✧</span></span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="section contact-section" aria-labelledby="contact-title">
+            <div class="contact-frame" data-reveal>
+                <div class="contact-decoration" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span></div>
+                <p class="section-kicker contact-kicker"><span>04</span><span data-i18n="contact_kicker">SEND A MESSAGE THROUGH THE FOG</span></p>
+                <h2 class="section-title" id="contact-title" data-i18n="contact_title">Find your way to us</h2>
+                <p class="contact-lead" data-i18n="contact_text">Have a question, found a bug, or wish to create something together? Our door is open.</p>
+                <h3 class="dev-name">RANDRIAMANANTIANA <span>Judickael</span></h3>
+                <div class="social-links">
+                    <a href="https://web.facebook.com/profile.php?id=61594423688822&amp;locale=fr_FR" class="button button-social" target="_blank" rel="noopener noreferrer"><span class="social-symbol">f</span>Facebook<span class="external-arrow">↗</span></a>
+                    <a href="https://wa.me/261378471001" class="button button-social" target="_blank" rel="noopener noreferrer"><span class="social-symbol">◉</span>WhatsApp<span class="external-arrow">↗</span></a>
+                </div>
+                <div class="donation-box">
+                    <span class="donation-icon" aria-hidden="true">✧</span>
+                    <div><p data-i18n="donation_text">Support the journey</p><strong class="phone-number">037 84 710 01</strong></div>
+                    <span class="donation-icon" aria-hidden="true">✧</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <a class="footer-brand" href="#home">WANDERGRAND <span>✦</span> STUDIO</a>
+        <p data-i18n="footer_line">Independent creations from Madagascar.</p>
+        <small>© <span id="current-year">2026</span> WANDERGRAND STUDIO. <span data-i18n="rights">ALL RIGHTS RESERVED.</span></small>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" type="button" aria-label="Back to top">↑</button>
+    <script src="script.js"></script>
+</body>
+</html>

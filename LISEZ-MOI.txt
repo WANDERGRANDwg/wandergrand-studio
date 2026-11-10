@@ -1,0 +1,33 @@
+WANDERGRAND STUDIO — REFONTE VISUELLE
+====================================
+
+Fichiers inclus :
+- index.html
+- style.css
+- script.js
+
+Installation :
+1. Faites une copie de sauvegarde de vos trois anciens fichiers.
+2. Copiez ces trois nouveaux fichiers dans le dossier wandergrand-studio/.
+3. Remplacez les anciens index.html, style.css et script.js.
+4. Ne supprimez pas les dossiers assets/ et downloads/.
+5. Ouvrez index.html dans votre navigateur ou actualisez votre site.
+
+Fonctions conservées :
+- Navigation Accueil / Jeu web / Jeux / Logiciels / Contact.
+- Traductions English / Français / Malagasy.
+- Téléchargements Windows et Linux de SDFAKER Vmada.
+- Images existantes assets/rain.png, assets/vmada.png et assets/engine.png.
+- Liens Facebook et WhatsApp, numéro de soutien.
+
+Améliorations :
+- Nouvelle direction artistique fantasy sombre, inspirée par une atmosphère de jeu
+  d'aventure, sans reprendre les personnages ou illustrations de Silksong.
+- Navigation mobile, indicateur de progression, bouton retour en haut.
+- Apparition progressive des sections et liens actifs pendant le défilement.
+- Mémorisation du choix de langue dans le navigateur.
+- Mise en page responsive et prise en charge de la réduction des animations.
+
+Note : les polices Google nécessitent une connexion Internet. Des polices de secours
+sont prévues si elles ne peuvent pas être chargées. Les images et archives restent
+celles du dossier assets/ et downloads/ de votre site actuel.
