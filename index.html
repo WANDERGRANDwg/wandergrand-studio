@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#090f16">
-    <meta name="description" content="Wandergrand Studio — independent games and creative software crafted in Madagascar.">
+    <meta name="theme-color" content="#0a0405">
+    <meta name="description" content="Wandergrand Studio — independent browser games, video games and creative software crafted in Madagascar.">
     <title>WANDERGRAND STUDIO — Worlds Beyond</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Barlow:wght@400;500;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -57,9 +57,7 @@
         <!-- HERO -->
         <section class="hero" id="home" aria-labelledby="hero-title">
             <div class="hero-atmosphere" aria-hidden="true">
-                <span class="mist mist-one"></span><span class="mist mist-two"></span>
-                <span class="star star-one">✦</span><span class="star star-two">·</span><span class="star star-three">✧</span>
-                <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+                <span class="streak s1"></span><span class="streak s2"></span><span class="streak s3"></span><span class="streak s4"></span>
             </div>
             <div class="hero-inner">
                 <div class="hero-copy" data-reveal>
@@ -75,18 +73,24 @@
 
                 <div class="hero-art" data-reveal aria-label="Wandergrand ornamental studio emblem">
                     <div class="art-halo"></div>
-                    <div class="art-ring ring-outer"></div>
-                    <div class="art-ring ring-inner"></div>
+                    <svg class="dial" viewBox="0 0 440 440" aria-hidden="true">
+                        <defs>
+                            <mask id="dialMask"><circle cx="220" cy="220" r="205" fill="none" stroke="#fff" stroke-width="40" stroke-dasharray="966 1288" transform="rotate(135 220 220)"/></mask>
+                        </defs>
+                        <circle cx="220" cy="220" r="205" class="dial-ticks" stroke-dasharray="2.5 15.4" mask="url(#dialMask)"/>
+                        <circle cx="220" cy="220" r="190" class="dial-track" stroke-dasharray="966 1288" transform="rotate(135 220 220)"/>
+                        <circle cx="220" cy="220" r="190" class="dial-fill" transform="rotate(135 220 220)"/>
+                    </svg>
                     <svg class="hero-emblem" viewBox="0 0 420 500" role="img" aria-label="Original Wandergrand crest">
                         <defs>
                             <linearGradient id="crestMetal" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0" stop-color="#f2ead7"/>
-                                <stop offset=".5" stop-color="#a8b7b7"/>
-                                <stop offset="1" stop-color="#71858b"/>
+                                <stop offset="0" stop-color="#f4e9da"/>
+                                <stop offset=".5" stop-color="#b9a9a2"/>
+                                <stop offset="1" stop-color="#6e5a58"/>
                             </linearGradient>
                             <linearGradient id="crestRed" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="0" stop-color="#bd6b68"/>
-                                <stop offset="1" stop-color="#713b48"/>
+                                <stop offset="0" stop-color="#ff3b4a"/>
+                                <stop offset="1" stop-color="#8a0d1c"/>
                             </linearGradient>
                         </defs>
                         <path class="crest-outline" d="M210 28 C270 76 326 84 354 88 L342 267 C331 351 277 414 210 462 C143 414 89 351 78 267 L66 88 C94 84 150 76 210 28Z"/>
@@ -125,18 +129,73 @@
                 </div>
                 <p class="section-intro" data-i18n="web_intro">Small portals to other worlds. Open, play, and discover.</p>
             </div>
+
+            <aside class="web-test-notice" role="note" aria-label="Web game test notice" data-reveal>
+                <span class="web-test-tag" data-i18n="web_test_tag">TEST BUILDS / REFERENCES</span>
+                <div class="web-test-copy">
+                    <h3 data-i18n="web_test_title">Experimental games — try them out</h3>
+                    <p data-i18n="web_test_notice">These browser games are experimental demos shared for visitors to try. They serve as gameplay tests and references, not finished or final releases. Explore the ideas, test the gameplay, and send us your feedback.</p>
+                </div>
+            </aside>
+
             <div class="project-grid web-grid">
                 <article class="project-card web-card" data-reveal>
-                    <div class="card-visual web-visual" aria-hidden="true">
-                        <div class="web-visual-moon"></div><div class="web-visual-ridge ridge-back"></div><div class="web-visual-ridge ridge-front"></div>
-                        <span class="visual-mark">WG <b>✦</b></span>
-                        <span class="visual-index">WEB / 001</span>
+                    <div class="image-wrap web-image-wrap">
+                        <img
+                            src="game%20web/SDFaker-Last-Standing.png"
+                            alt="SDFAKER Last Standing Online game artwork"
+                            class="card-img"
+                            loading="lazy"
+                            onerror="this.closest('.image-wrap').classList.add('image-missing'); this.style.display='none'">
+                        <div class="image-fallback web-fallback" aria-hidden="true">
+                            <span>SDFAKER</span><strong>LAST STANDING</strong><i>✦</i>
+                        </div>
+                        <span class="image-overlay-label">WEB / 001</span>
                     </div>
                     <div class="card-body">
-                        <div class="card-meta"><span class="status status-dev" data-i18n="status_dev">In Development</span><span class="card-category" data-i18n="category_web">BROWSER GAME</span></div>
-                        <h3>SDFAKER <span>STREET</span></h3>
-                        <p data-i18n="web_game_desc">A new street-racing experience is taking shape. More details will be revealed soon.</p>
-                        <span class="card-footnote" data-i18n="coming_soon">A NEW JOURNEY IS TAKING SHAPE <span aria-hidden="true">↗</span></span>
+                        <div class="card-meta">
+                            <span class="card-category" data-i18n="category_web">BROWSER GAME</span>
+                        </div>
+                        <h3>SDFAKER <span>LAST STANDING</span></h3>
+                        <p data-i18n="last_standing_desc">Open the SDFAKER Last Standing Online game.</p>
+                        <a
+                            class="button button-primary web-play-button"
+                            href="game%20web/SDFaker-Last-Standing-Online-Package/SDFaker-Last-Standing-ONLINE.html"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <span data-i18n="play_now">Play now</span>
+                            <span class="button-arrow" aria-hidden="true">↗</span>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="project-card web-card" data-reveal>
+                    <div class="image-wrap web-image-wrap">
+                        <img
+                            src="game%20web/sdfaker%20street.png"
+                            alt="SDFAKER Street Police Slowcar game artwork"
+                            class="card-img"
+                            loading="lazy"
+                            onerror="this.closest('.image-wrap').classList.add('image-missing'); this.style.display='none'">
+                        <div class="image-fallback web-fallback" aria-hidden="true">
+                            <span>SDFAKER</span><strong>STREET POLICE</strong><i>✦</i>
+                        </div>
+                        <span class="image-overlay-label">WEB / 002</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="card-category" data-i18n="category_web">BROWSER GAME</span>
+                        </div>
+                        <h3>SDFAKER <span>STREET POLICE SLOWCAR</span></h3>
+                        <p data-i18n="street_police_desc">Launch the SDFAKER Street Police Slowcar game.</p>
+                        <a
+                            class="button button-primary web-play-button"
+                            href="game%20web/SDFAKER-street-police-slowcar.html"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            <span data-i18n="play_now">Play now</span>
+                            <span class="button-arrow" aria-hidden="true">↗</span>
+                        </a>
                     </div>
                 </article>
             </div>
@@ -221,12 +280,6 @@
                 <h3 class="dev-name">RANDRIAMANANTIANA <span>Judickael</span></h3>
                 <div class="social-links">
                     <a href="https://web.facebook.com/profile.php?id=61594423688822&amp;locale=fr_FR" class="button button-social" target="_blank" rel="noopener noreferrer"><span class="social-symbol">f</span>Facebook<span class="external-arrow">↗</span></a>
-                    <a href="https://wa.me/261378471001" class="button button-social" target="_blank" rel="noopener noreferrer"><span class="social-symbol">◉</span>WhatsApp<span class="external-arrow">↗</span></a>
-                </div>
-                <div class="donation-box">
-                    <span class="donation-icon" aria-hidden="true">✧</span>
-                    <div><p data-i18n="donation_text">Support the journey</p><strong class="phone-number">037 84 710 01</strong></div>
-                    <span class="donation-icon" aria-hidden="true">✧</span>
                 </div>
             </div>
         </section>
