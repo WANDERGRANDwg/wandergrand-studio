@@ -1,0 +1,8 @@
+node_modules/
+.env
+*.log
+coverage/
+test/
+scripts/
+README.md
+.git/

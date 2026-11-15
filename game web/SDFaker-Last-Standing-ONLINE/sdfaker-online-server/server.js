@@ -5,6 +5,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { WebSocketServer, WebSocket } = require('ws');
+const WORLD = require('./world');
 
 // Small .env loader so local development does not need an extra dotenv dependency.
 function loadDotEnv(file = path.resolve('.env')) {
@@ -29,10 +30,11 @@ loadDotEnv();
 
 const PORT_VALUE = Number(process.env.PORT || 8080);
 const PORT = Number.isInteger(PORT_VALUE) && PORT_VALUE > 0 && PORT_VALUE <= 65535 ? PORT_VALUE : 8080;
-const MAX_PLAYERS_VALUE = Number.parseInt(process.env.MAX_PLAYERS || '32', 10);
-const MAX_PLAYERS = Number.isFinite(MAX_PLAYERS_VALUE) ? Math.max(2, Math.min(64, MAX_PLAYERS_VALUE)) : 32;
+const MAX_PLAYERS_VALUE = Number.parseInt(process.env.MAX_PLAYERS || '0', 10);
+// 0 means no application-level player cap; practical capacity is determined by the host.
+const MAX_PLAYERS = Number.isFinite(MAX_PLAYERS_VALUE) && MAX_PLAYERS_VALUE > 0
+  ? Math.max(1, Math.min(512, MAX_PLAYERS_VALUE)) : 0;
 const ADMIN_NAME_CODE = process.env.ADMIN_NAME_CODE || '';
-const DATA_FILE = path.resolve(process.env.DATA_FILE || './data/server-data.json');
 const ALLOWED_ORIGINS = String(process.env.ALLOWED_ORIGINS || 'https://wandergrandwg.github.io').split(',').map(s => s.trim()).filter(Boolean);
 const DEFAULT_APP = Object.freeze({ gender: 'm', size: 'normal', body: '#2fbf4f' });
 const NAME_RE = /^[A-Za-z0-9_-]{2,16}$/;
@@ -41,33 +43,7 @@ const PREP_MS = 30_000;
 const RELOAD_MS = 10_000;
 const FIRE_COOLDOWN_MS = 280;
 
-function loadRecord() {
-  try {
-    const raw = JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
-    return {
-      score: Number.isSafeInteger(raw.score) && raw.score > 0 ? raw.score : 0,
-      name: typeof raw.name === 'string' ? raw.name.slice(0, 16) : '',
-      holderId: null
-    };
-  } catch {
-    return { score: 0, name: '', holderId: null };
-  }
-}
-
-let record = loadRecord();
 let session = null;
-let nextWeatherAt = 0;
-
-function persistRecord() {
-  try {
-    fs.mkdirSync(path.dirname(DATA_FILE), { recursive: true });
-    const tmp = `${DATA_FILE}.${process.pid}.tmp`;
-    fs.writeFileSync(tmp, JSON.stringify({ score: record.score, name: record.name }, null, 2));
-    fs.renameSync(tmp, DATA_FILE);
-  } catch (err) {
-    console.error('[record] write failed:', err.message);
-  }
-}
 
 // This is the same deterministic terrain function used by the browser build.
 function hashGrid(x, z) {
@@ -129,7 +105,9 @@ function makeSession() {
     epoch: now,
     lastTick: now,
     weather: { kind: 'clear', rain: 0, cloud: .1, wind: .12, storm: 0, next: now + 90_000 },
-    topKey: ''
+    topKey: '',
+    // The lifetime record belongs to this live room and is discarded when it becomes empty.
+    record: { score: 0, name: '', holderId: null }
   };
 }
 function emit(s, event) {
@@ -202,13 +180,14 @@ function nearCityWall(x, z) {
 function chooseSpawn(s, exceptId) {
   const candidates = [];
   const others = [...s.players.values()].filter(p => p.id !== exceptId && p.phase === 'playing');
-  for (let i = 0; i < 80; i++) {
+  for (let i = 0; i < 500; i++) {
     const angle = Math.random() * Math.PI * 2;
     const radius = 245 + Math.random() * 165;
     const x = Math.cos(angle) * radius;
     const z = Math.sin(angle) * radius;
     const y = terrainHeight(x, z);
     if (Math.abs(x) > 465 || Math.abs(z) > 465 || y < .55 || nearCityWall(x, z)) continue;
+    if (WORLD.collidesAt(x, y + .06, z, .38, 1.8)) continue;
     if ([[320,-60,64],[-330,90,64],[40,330,64],[-60,-320,64],[270,250,64],[-260,-250,64]].some(([cx,cz,r]) => Math.hypot(x-cx,z-cz)<r)) continue;
     const nearest = others.reduce((d,p) => Math.min(d, Math.hypot(p.x-x,p.z-z)), 1e9);
     candidates.push({ x, y: y + .06, z, nearest });
@@ -216,8 +195,12 @@ function chooseSpawn(s, exceptId) {
   candidates.sort((a,b) => b.nearest - a.nearest);
   const chosen = candidates.slice(0, Math.min(8, candidates.length));
   if (chosen.length) return chosen[crypto.randomInt(chosen.length)];
-  const x = 360, z = 80;
-  return { x, y: terrainHeight(x,z)+.06, z };
+  // Deterministic dry-land fallback, checked against the same map collision set.
+  for (const [x, z] of [[360,80],[-360,80],[80,360],[80,-360],[420,0],[-420,0],[0,420],[0,-420]]) {
+    const y = terrainHeight(x,z) + .06;
+    if (!WORLD.collidesAt(x, y, z, .38, 1.8) && Math.abs(x) < 470 && Math.abs(z) < 470) return {x,y,z};
+  }
+  return { x: 440, y: terrainHeight(440, 0) + .06, z: 0 };
 }
 function spawnPlayer(s, p, reason) {
   const pos = chooseSpawn(s, p.id);
@@ -230,7 +213,7 @@ function spawnPlayer(s, p, reason) {
 function createPlayer(s) {
   const now = Date.now();
   const p = {
-    id: crypto.randomUUID(), name:'', phase:'preparing', app:{...DEFAULT_APP}, v:0,
+    id: crypto.randomUUID(), name:'', phase:'preparing', app:{...DEFAULT_APP,gender:Math.random()<.5?'f':'m'}, v:0,
     x:330, y:terrainHeight(330,0)+.06, z:0, yaw:0, pitch:0, anim:'idle', aim:false, move:0,
     hp:10, ammo:10, heals:0, pending:0, reloadEnd:0, lastFire:0,
     score:0, scoreAt:now, joinedAt:now, lastSeen:now, prepEnd:now+PREP_MS,
@@ -259,15 +242,14 @@ function killPlayer(s, victim, killer, head) {
   victim.anim = 'dead'; victim.reloadEnd = 0; victim.score = 0;
   victim.killedBy = killerName;
   victim.aim = false; victim.move = 0;
-  if (record.holderId === victim.id) record.holderId = null;
+  if (s.record.holderId === victim.id) s.record.holderId = null;
   releaseName(s,victim);
   if (killer && killer.phase === 'playing') {
     killer.score++;
     killer.scoreAt = Date.now();
     killer.pending = Math.min(2,killer.pending+1);
-    if (killer.score > record.score) {
-      record = { score:killer.score, name:killer.name, holderId:killer.id };
-      persistRecord();
+    if (killer.score > s.record.score) {
+      s.record = { score:killer.score, name:killer.name, holderId:killer.id };
       emit(s,{t:'record',name:killer.name,score:killer.score});
     }
   }
@@ -305,32 +287,6 @@ function rayBody(origin,dir,p) {
   }
   return best;
 }
-function rayAabb(origin,dir,box,maxDistance) {
-  let lo=0, hi=maxDistance;
-  const mins=[box.x0,box.y0,box.z0], maxs=[box.x1,box.y1,box.z1];
-  for (let k=0;k<3;k++) {
-    if (Math.abs(dir[k])<1e-9) { if (origin[k]<mins[k] || origin[k]>maxs[k]) return -1; continue; }
-    let a=(mins[k]-origin[k])/dir[k], b=(maxs[k]-origin[k])/dir[k];
-    if (a>b) [a,b]=[b,a];
-    lo=Math.max(lo,a); hi=Math.min(hi,b);
-    if (lo>hi) return -1;
-  }
-  return lo;
-}
-function cityWallBoxes() {
-  const y0=-1, y1=18, half=201, thick=2;
-  return [
-    {x0:-half-thick,y0,z0:-half-thick,x1:-half,y1,z1:-9},
-    {x0:-half-thick,y0,z0:9,x1:-half,y1,z1:half+thick},
-    {x0:half,y0,z0:-half-thick,x1:half+thick,y1,z1:-9},
-    {x0:half,y0,z0:9,x1:half+thick,y1,z1:half+thick},
-    {x0:-half-thick,y0,z0:-half-thick,x1:-9,y1,z1:-half},
-    {x0:9,y0,z0:-half-thick,x1:half+thick,y1,z1:-half},
-    {x0:-half-thick,y0,z0:half,y1,z1:half+thick},
-    {x0:9,y0,z0:half,x1:half+thick,y1,z1:half+thick}
-  ];
-}
-const WALL_BOXES = cityWallBoxes();
 function fireShot(s, shooter, act) {
   const now=Date.now();
   if (shooter.phase!=='playing' || shooter.reloadEnd || shooter.ammo<=0 || now-shooter.lastFire<FIRE_COOLDOWN_MS) return;
@@ -343,16 +299,9 @@ function fireShot(s, shooter, act) {
   const origin=Math.hypot(act.o[0]-eye[0],act.o[1]-eye[1],act.o[2]-eye[2])<6 ? act.o : eye;
   shooter.lastFire=now; shooter.ammo--;
   if (shooter.ammo===0) shooter.reloadEnd=now+RELOAD_MS;
-  let nearest=400, kind='none', target=null, head=false;
-  for (const box of WALL_BOXES) {
-    const t=rayAabb(origin,dir,box,nearest);
-    if (t>=0 && t<nearest) { nearest=t; kind='wall'; target=null; }
-  }
-  // Terrain blocks shots even where no building collider is present.
-  for (let d=1.5; d<nearest; d+=2) {
-    const x=origin[0]+dir[0]*d, y=origin[1]+dir[1]*d, z=origin[2]+dir[2]*d;
-    if (y < Math.max(terrainHeight(x,z),0)) { nearest=d; kind='ground'; target=null; break; }
-  }
+  // Authoritative line of sight against every generated map collider plus terrain.
+  const obstruction=WORLD.raycastWorld(origin,dir,1500,terrainHeight);
+  let nearest=obstruction.distance, kind=obstruction.kind, target=null, head=false;
   for (const p of s.players.values()) {
     if (p.id===shooter.id || p.phase!=='playing') continue;
     const scale=scaleOf(p);
@@ -387,8 +336,9 @@ function validateState(s,p,st) {
   const dt=Math.min(1.5,Math.max(.016,(now-p.lastStateT)/1000));
   const distance=Math.hypot(st.x-p.x,st.z-p.z);
   const ground=terrainHeight(st.x,st.z);
-  const blocked=Math.abs(st.x)>497 || Math.abs(st.z)>497 || nearCityWall(st.x,st.z) || ground < -1.8 && st.y < ground+.6;
-  if (distance>8.5*dt+1.8 || st.y-p.y>3+12*dt || p.y-st.y>45*dt+3 || blocked || st.y<ground-.8 || st.y>ground+22) {
+  const deepWater = ground < -1.8 && st.y < ground + .7;
+  const blocked = Math.abs(st.x)>497 || Math.abs(st.z)>497 || (!deepWater && WORLD.sweptCollides(p.x,p.y,p.z,st.x,st.y,st.z,.38*scaleOf(p),1.8*scaleOf(p)));
+  if (distance>9.2*dt+.5 || st.y-p.y>3+12*dt || p.y-st.y>45*dt+3 || blocked || (!deepWater && st.y<ground-.8) || st.y>ground+22) {
     p.corrId++; p.corr={x:p.x,y:p.y,z:p.z,n:p.corrId,why:'snap'};
     return;
   }
@@ -398,16 +348,16 @@ function validateState(s,p,st) {
   p.aim=!!st.aim; p.move=Math.max(0,Math.min(1,Number(st.move)||0));
   p.anim=['idle','walk','run','jump','fall','land'].includes(st.anim)?st.anim:'idle';
   if (p.y < ground-.8) p.y=ground;
-  if (ground < -1.8 && p.y < ground+.7) {
+  if (deepWater) {
     emit(s,{t:'splash',id:p.id,x:p.x,y:0,z:p.z});
     if (p.hp<=2) killPlayer(s,p,null,false);
     else { p.hp-=2; emit(s,{t:'hit',id:p.id,by:'',head:false}); spawnPlayer(s,p,'water'); }
   }
 }
 function currentTop(s) {
-  const holder=record.holderId ? s.players.get(record.holderId) : null;
+  const holder=s.record.holderId ? s.players.get(s.record.holderId) : null;
   const holderPlaying=!!holder && holder.phase==='playing';
-  const top=[{name:holderPlaying?holder.name:'',score:record.score,none:!holderPlaying}];
+  const top=[{name:holderPlaying?holder.name:'',score:s.record.score,none:!holderPlaying}];
   const players=[...s.players.values()].filter(p=>p.phase==='playing' && !(holderPlaying && p.id===holder.id));
   players.sort((a,b)=>b.score-a.score || (a.score>0 ? a.scoreAt-b.scoreAt : a.joinedAt-b.joinedAt));
   for (let i=0;i<2;i++) top.push(players[i]?{name:players[i].name,score:players[i].score}:{name:'',score:0,none:true});
@@ -469,11 +419,10 @@ function removePlayer(s,p) {
   if (p.phase==='playing' || p.phase==='dead') emit(s,{t:'leave',name:p.name});
   releaseName(s,p);
   s.players.delete(p.id);
-  if (record.holderId===p.id) record.holderId=null;
+  if (s.record.holderId===p.id) s.record.holderId=null;
   if (s.players.size===0 && session===s) {
     session=null;
-    persistRecord();
-    console.log('[session] empty; session closed');
+    console.log('[session] empty; room destroyed and transient scores cleared');
   }
 }
 function syncPlayer(s,p,data) {
@@ -496,7 +445,7 @@ function syncPlayer(s,p,data) {
   return result;
 }
 function status() {
-  return { ok:true, online:session?session.players.size:0, sessionActive:!!session, maxPlayers:MAX_PLAYERS, record:record.score, uptime:session?Math.floor((Date.now()-session.createdAt)/1000):0, local:false };
+  return { ok:true, online:session?session.players.size:0, sessionActive:!!session, maxPlayers:MAX_PLAYERS || null, record:session?session.record.score:0, uptime:session?Math.floor((Date.now()-session.createdAt)/1000):0, local:false };
 }
 function respond(ws,rid,data) {
   if (ws.readyState===WebSocket.OPEN) ws.send(JSON.stringify({rid,data}));
@@ -517,7 +466,7 @@ function handleRequest(ws, req) {
       }
       if (!result) {
         if (!session) { session=makeSession(); console.log('[session] created automatically'); }
-        if (session.players.size>=MAX_PLAYERS) result={ok:false,err:'full'};
+        if (MAX_PLAYERS > 0 && session.players.size >= MAX_PLAYERS) result={ok:false,err:'full'};
         else {
           const p=createPlayer(session);
           ws.playerId=p.id;
@@ -550,10 +499,12 @@ function handleRequest(ws, req) {
   respond(ws,rid,result);
 }
 
+// The Node process is the authoritative host. The first Play creates one in-memory room;
+// later players join it. Human client disconnects never migrate authority or reset the room.
 const server=http.createServer((req,res)=>{
   if (req.url==='/health' || req.url==='/') {
     res.writeHead(200,{'content-type':'application/json; charset=utf-8','cache-control':'no-store'});
-    res.end(JSON.stringify({service:'SDFaker Last Standing server',status:'ok',transport:'websocket',online:session?session.players.size:0,maxPlayers:MAX_PLAYERS}));
+    res.end(JSON.stringify({service:'SDFaker Last Standing server',status:'ok',transport:'websocket',online:session?session.players.size:0,maxPlayers:MAX_PLAYERS||null,colliders:WORLD.COLLIDER_COUNT}));
     return;
   }
   res.writeHead(404,{'content-type':'application/json'}); res.end(JSON.stringify({error:'not found'}));
@@ -587,11 +538,10 @@ const heartbeat=setInterval(()=>{
     if (ws.readyState===WebSocket.OPEN) ws.ping();
   }
 },15_000);
-server.listen(PORT,'0.0.0.0',()=>console.log(`[SDFaker] WebSocket server listening on :${PORT}/ws (max ${MAX_PLAYERS})`));
+server.listen(PORT,'0.0.0.0',()=>console.log(`[SDFaker] WebSocket server listening on :${PORT}/ws (players: ${MAX_PLAYERS || 'unlimited'}, map colliders: ${WORLD.COLLIDER_COUNT})`));
 function shutdown(){
   clearInterval(tickTimer); clearInterval(heartbeat);
   if(session){ for(const p of [...session.players.values()]) removePlayer(session,p); }
-  persistRecord();
   wss.close(()=>server.close(()=>process.exit(0)));
   setTimeout(()=>process.exit(0),2500).unref();
 }

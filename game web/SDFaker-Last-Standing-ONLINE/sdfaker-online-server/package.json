@@ -1,0 +1,21 @@
+{
+  "name": "sdfaker-last-standing-server",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Single-room authoritative WebSocket backend for SDFaker: Last Standing, Most Kills",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check world.js && node --check scripts/generate-world-colliders.cjs",
+    "build:colliders": "node scripts/generate-world-colliders.cjs",
+    "test:world": "node test/world-collision.test.js",
+    "test:online": "node test/online-smoke-test.js",
+    "test": "npm run test:world && npm run test:online"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

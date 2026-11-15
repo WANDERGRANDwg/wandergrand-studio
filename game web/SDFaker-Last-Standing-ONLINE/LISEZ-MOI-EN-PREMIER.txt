@@ -1,0 +1,37 @@
+SDFaker: Last Standing, Most Kills — version mise à jour
+Wandergrand
+
+CONTENU
+- SDFaker-Last-Standing-ONLINE.html : jeu WebGL
+- sdfaker-server-config.js : adresse WebSocket à configurer
+- sdfaker-online-server/ : serveur Node.js, protocole multijoueur et collisions de la carte
+
+IMPORTANT
+Le ZIP contient le code du jeu ET le backend, mais le backend ne peut pas fonctionner depuis GitHub Pages.
+Il faut lancer le dossier sdfaker-online-server sur un ordinateur/VPS ou le déployer sur un hébergeur Node/Docker qui reste actif.
+
+TEST LOCAL
+1. Dans un terminal :
+   cd sdfaker-online-server
+   npm install
+   cp .env.example .env
+   nano .env
+   Renseigne ADMIN_NAME_CODE avec ton code créateur privé.
+   ALLOWED_ORIGINS=http://localhost:8000 npm start
+
+2. Dans un deuxième terminal, à la racine de ce ZIP :
+   python3 -m http.server 8000
+
+3. Pour le test local uniquement, édite sdfaker-server-config.js :
+   window.SDFAKER_SERVER_URL = "ws://127.0.0.1:8080/ws";
+
+4. Ouvre cette adresse dans deux navigateurs différents :
+   http://localhost:8000/SDFaker-Last-Standing-ONLINE.html
+   Clique PLAY dans les deux navigateurs.
+
+PUBLICATION
+Pour Internet, le backend doit être hébergé séparément et accessible en WSS.
+Remplace alors l'adresse de sdfaker-server-config.js par la vraie adresse WSS du backend.
+Ne publie jamais le fichier .env ou le code créateur.
+
+Documentation complète : sdfaker-online-server/README.md

@@ -42,11 +42,15 @@ function rpc(ws, action, payload = {}) {
     let status = await rpc(a, 'status');
     assert.equal(status.ok, true, 'health/status should respond');
     assert.equal(status.online, 0, 'fresh server should start with zero players');
+    assert.equal(status.maxPlayers, null, 'MAX_PLAYERS=0 should mean no software-level cap');
+    assert.equal(status.record, 0, 'a fresh room/server should have no session record');
 
     const first = await rpc(a, 'join');
     assert.equal(first.ok, true, 'first player should create the session automatically');
+    assert.equal(first.created, true, 'the first player should create the one shared room');
     const second = await rpc(b, 'join');
     assert.equal(second.ok, true, 'second real connection should join the same session');
+    assert.equal(second.created, false, 'later players should join, not create a second room');
     assert.notEqual(first.id, second.id, 'players must have unique IDs');
     const duplicateJoin = await rpc(a, 'join');
     assert.equal(duplicateJoin.id, first.id, 'one WebSocket must not create duplicate player slots');
@@ -79,14 +83,25 @@ function rpc(ws, action, payload = {}) {
     assert.equal(syncB.players.length, 2, 'second client must receive the first real player');
 
     await rpc(a, 'leave', { id:first.id });
+    const releasedName = await rpc(b, 'claim', { id:second.id, name:'OnlineA', code:'' });
+    assert.equal(releasedName.ok, true, 'a name must become available when its owner leaves');
     status = await rpc(b, 'status');
     assert.equal(status.online, 1, 'leaving one player must leave the other connected');
     await rpc(b, 'leave', { id:second.id });
     status = await rpc(b, 'status');
     assert.equal(status.online, 0, 'session must have zero players after both leave');
     assert.equal(status.sessionActive, false, 'empty session must close automatically');
+    assert.equal(status.record, 0, 'session record must reset when the last player leaves');
 
-    console.log('PASS: two real WebSocket clients joined one session, saw each other, reserved names, and closed the empty session.');
+    const third = await rpc(b, 'join');
+    assert.equal(third.ok, true, 'a later Play must automatically create a fresh room');
+    assert.equal(third.created, true);
+    status = await rpc(b, 'status');
+    assert.equal(status.online, 1);
+    assert.equal(status.record, 0, 'fresh room must not retain the previous room record');
+    await rpc(b, 'leave', { id:third.id });
+
+    console.log('PASS: auto-create/join, no duplicate slots, name release, player sync, empty-room cleanup and fresh-room reset.');
   } catch (err) {
     console.error('FAIL:', err.stack || err);
     process.exitCode = 1;
